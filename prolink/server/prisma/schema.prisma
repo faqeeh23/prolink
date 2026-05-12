@@ -18,6 +18,7 @@ model User {
   role      Role    @default(USER)
   services  Service[]
   projects  Project[]
+  bookings  Booking[]
   createdAt DateTime @default(now())
   avatarUrl String?
 }
@@ -32,7 +33,11 @@ model Project {
   owner       User     @relation(fields: [ownerId], references: [id])
   tasks       Task[]
   services    Service[]
+  fileStructures FileStructure[]
+  bookings    Booking[]
   createdAt   DateTime @default(now())
+  completionRate Float    @default(0)
+  aiContext   String?
   githubUrl   String?
   linkedinUrl String?
 }
@@ -43,6 +48,8 @@ model Task {
   isCompleted Boolean @default(false)
   createdAt DateTime @default(now())
   projectId String
+  order Int
+  description String?
   project   Project @relation(fields: [projectId], references: [id])
 }
 
@@ -58,9 +65,30 @@ model Service {
   user        User     @relation(fields: [userId], references: [id])
 }
 
+model FileStructure {
+  id        String   @id @default(uuid())
+  name      String
+  path      String
+  content   String? @db.Text
+  projectId String
+  project   Project  @relation(fields: [projectId], references: [id])
+  createdAt DateTime @default(now())
+}
+
+model Booking {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  projectId String
+  project   Project  @relation(fields: [projectId], references: [id])
+  bookingDate DateTime
+  status    String   @default("PENDING")
+  createdAt DateTime @default(now())
+}
+
 enum Role {
   USER
-  PRO
+  DEV
   ADMIN
 }
 

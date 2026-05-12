@@ -25,7 +25,7 @@ const Register = async (req , res ) => {
                 password : hashedPassword
             }
         })
-        const token = jwt.sign({ userId : newUser.id } , process.env.JWT_SECRET , { expiresIn : '10d'})
+        const token = jwt.sign({ id : newUser.id } , process.env.JWT_SECRET , { expiresIn : '10d'})
         res.status(201).json({ message : "تم التسجيل ب نجاح " , user : { id : newUser.id , name : newUser.name , email : newUser.email } , token })
     } catch (error) {
         console.error(error);
@@ -51,7 +51,7 @@ const Login = async (req , res ) => {
         if (!isPasswordValid) {
             return res.status(400).json({ message : "كلمة السر غير صحيحة "})
         }
-        const token = jwt.sign({ userId : user.id } , process.env.JWT_SECRET , { expiresIn : '10d'})
+        const token = jwt.sign({ id : user.id } , process.env.JWT_SECRET , { expiresIn : '10d'})
         res.status(200).json( { message : " تم تسجيل الدخول بنجاح " , user : { id : user.id , name : user.name , email : user.email } , token })
 
     }
