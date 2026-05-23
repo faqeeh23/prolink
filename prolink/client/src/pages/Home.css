@@ -1,0 +1,308 @@
+.home-page {
+    background-color: #0b0f19; 
+    color: #f8fafc;
+    overflow-x: hidden;
+    padding-top: 80px; 
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.section {
+    padding: 7rem 0;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    letter-spacing: -1px;
+    margin-bottom: 1rem;
+}
+
+.section-desc {
+    color: #94a3b8;
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.gradient-text {
+    background: linear-gradient(135deg, #38bdf8, #a855f7);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* ==========================================
+   1. HERO SECTION STYLE
+   ========================================== */
+.hero-section {
+    position: relative;
+    padding: 10rem 0 8rem 0;
+    text-align: center;
+}
+
+.hero-glowing-blur {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(56, 189, 248, 0.15) 0%, rgba(168, 85, 247, 0.05) 50%, transparent 100%);
+    filter: blur(80px);
+    z-index: 0;
+    pointer-events: none;
+}
+
+.hero-container {
+    position: relative;
+    z-index: 1;
+}
+
+.hero-badge {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 0.5rem 1.2rem;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+    color: #38bdf8;
+    text-transform: uppercase;
+}
+
+.hero-title {
+    font-size: 4rem;
+    font-weight: 900;
+    letter-spacing: -2px;
+    line-height: 1.1;
+    margin: 2rem 0 1.5rem 0;
+    max-width: 900px;
+    display: inline-block;
+}
+
+.hero-subtitle {
+    font-size: 1.25rem;
+    color: #94a3b8;
+    max-width: 650px;
+    margin: 0 auto 3rem auto;
+    line-height: 1.6;
+}
+
+.hero-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+}
+/* hero buttons */
+.btn-primary {
+    background: linear-gradient(135deg, #38bdf8, #0284c7);
+    color: white;
+    padding: 0.9rem 2rem;
+    border-radius: 50px;
+    font-weight: 600;
+    text-decoration: none;
+    box-shadow: 0 4px 20px rgba(56, 189, 248, 0.3);
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 25px rgba(56, 189, 248, 0.5);
+}
+
+.btn-secondary {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #f8fafc;
+    padding: 0.9rem 2rem;
+    border-radius: 50px;
+    font-weight: 600;
+    text-decoration: none;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.08);
+    transform: translateY(-3px);
+}
+
+/* ==========================================
+   2. HOW IT WORKS STYLE 
+   ========================================== */
+.steps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2.5rem;
+}
+
+.step-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 3rem 2rem;
+    border-radius: 24px;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.step-card:hover {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(56, 189, 248, 0.2);
+    transform: translateY(-5px);
+}
+
+.step-number {
+    font-size: 3rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, rgba(56, 189, 248, 0.3), transparent);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 1rem;
+}
+
+.step-card h3 {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+}
+
+.step-card p {
+    color: #94a3b8;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* ==========================================
+   3. SHOWCASE STYLE 
+   ========================================== */
+.showcase-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+    gap: 3rem;
+}
+
+.project-card {
+    cursor: pointer;
+    group: hover;
+}
+
+.project-image-wrapper {
+    background: linear-gradient(135deg, #1e293b, #0f172a);
+    height: 300px;
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.project-placeholder {
+    color: #475569;
+    font-weight: 500;
+    letter-spacing: 1px;
+}
+
+.project-card:hover .project-image-wrapper {
+    transform: scale(0.98);
+    border-color: rgba(168, 85, 247, 0.3);
+    box-shadow: 0 20px 40px -20px rgba(168, 85, 247, 0.2);
+}
+
+.project-info {
+    margin-top: 1.5rem;
+    padding-left: 0.5rem;
+}
+
+.project-info span {
+    color: #a855f7;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.project-info h3 {
+    font-size: 1.4rem;
+    margin-top: 0.5rem;
+    color: #f8fafc;
+}
+
+/* ==========================================
+   4. SERVICES STYLE 
+   ========================================== */
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2.5rem;
+}
+
+.service-card {
+    background: rgba(255, 255, 255, 0.01);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(10px);
+    padding: 3rem 2rem;
+    border-radius: 24px;
+    transition: all 0.3s ease;
+}
+
+.service-card:hover {
+    background: rgba(255, 255, 255, 0.03);
+    border-color: rgba(56, 189, 248, 0.2);
+    box-shadow: inset 0 0 20px rgba(56, 189, 248, 0.05);
+}
+
+.service-icon {
+    font-size: 2rem;
+    color: #38bdf8;
+    margin-bottom: 1.5rem;
+    text-shadow: 0 0 15px rgba(56, 189, 248, 0.6);
+}
+
+.service-card h3 {
+    font-size: 1.35rem;
+    margin-bottom: 1rem;
+}
+
+.service-card p {
+    color: #94a3b8;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* ==========================================
+   5. RESPONSIVE DESIGN
+   ========================================== */
+
+@media (max-width: 992px) {
+    .hero-title {
+        font-size: 3rem;
+    }
+    .showcase-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero-title {
+        font-size: 2.3rem;
+    }
+    .hero-actions {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 0 2rem;
+    }
+    .section {
+        padding: 4rem 0;
+    }
+}

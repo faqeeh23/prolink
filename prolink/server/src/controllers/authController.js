@@ -43,7 +43,7 @@ const Login = async (req , res ) => {
         if (!emailRegex.test(email)) {
             return res.status(400).json({ message: "صيغة الايميل غير صحيحة "})
         }
-        const user = await prisma.user.findUnique({ where : {email} });
+        const user = await prisma.user.findUnique({ where : { email } });
         if (!user ) {
             return res.status(400).json({ message : "المستخدم غير موجود "})
         }

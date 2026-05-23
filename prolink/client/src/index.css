@@ -1,0 +1,129 @@
+/* ==========================================================================
+   1. Global Tokens & Theme System
+   ========================================================================== */
+:root {
+  --bg: #0b0f19;
+  --bg-card: rgba(15, 23, 42, 0.45);
+  --bg-glass: rgba(15, 23, 42, 0.3);
+  --bg-glass-scrolled: rgba(15, 23, 42, 0.75);
+  --border: rgba(255, 255, 255, 0.06);
+  --border-glass: rgba(255, 255, 255, 0.08);
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --code-bg: #1e293b;
+  
+  --accent-color: #38bdf8;
+  --accent-purple: #a855f7;
+  --accent-glow: rgba(56, 189, 248, 0.4);
+  --shadow: rgba(0, 0, 0, 0.5) 0 20px 40px -15px;
+
+  /* Typography */
+  --sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --heading: 'Inter', system-ui, sans-serif;
+  --mono: 'Plus Jakarta Sans', ui-monospace, SFMono-Regular, Consolas, monospace;
+
+  font: 18px/145% var(--sans);
+  letter-spacing: 0.18px;
+  color-scheme: dark;
+  color: var(--text-muted);
+  background: var(--bg);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ==========================================================================
+   2. Responsive Font Resizing
+   ========================================================================== */
+@media (max-width: 1024px) {
+  :root {
+    font-size: 16px;
+  }
+}
+
+/* ==========================================================================
+   3. Global Layout & Reset 
+   ========================================================================== */
+body {
+  margin: 0;
+  background-color: var(--bg);
+  color: var(--text-muted);
+}
+
+#root {
+  width: 100%;
+  max-width: 1200px; 
+  margin: 0 auto;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  position: relative;
+}
+
+/* ==========================================================================
+   4. Typography Styling
+   ========================================================================== */
+h1, h2, h3, h4 {
+  font-family: var(--heading);
+  color: var(--text-main);
+  margin: 0;
+}
+
+h1 {
+  font-size: 56px;
+  font-weight: 900;
+  letter-spacing: -2px;
+  line-height: 1.1;
+}
+
+@media (max-width: 1024px) {
+  h1 {
+    font-size: 38px;
+    letter-spacing: -1px;
+  }
+}
+
+h2 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  letter-spacing: -1px;
+  line-height: 120%;
+}
+
+@media (max-width: 1024px) {
+  h2 {
+    font-size: 2rem;
+  }
+}
+
+p {
+  margin: 0;
+  line-height: 1.6;
+}
+
+code, .counter {
+  font-family: var(--mono);
+  display: inline-flex;
+  border-radius: 6px;
+  color: var(--accent-color);
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+}
+
+code {
+  font-size: 14px;
+  line-height: 135%;
+  padding: 4px 10px;
+  letter-spacing: 0;
+}
+
+#social .button-icon {
+  filter: invert(1) brightness(1.8);
+  transition: filter 0.3s ease;
+}
+
+#social .button-icon:hover {
+  filter: invert(1) brightness(2.5) drop-shadow(0 0 8px var(--accent-color));
+}
