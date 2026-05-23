@@ -1,12 +1,15 @@
 import { useState } from "react";
 import axios from "axios"; 
-import "./Login.css"; // ربط ملف الـ CSS الفخم الجديد
+import { useNavigate } from "react-router-dom";
+import "./Login.css"; 
 
 export default function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false); 
+
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -15,10 +18,13 @@ export default function Login() {
 
         try {
             const response = await axios.post("http://localhost:5000/api/auth/login", { 
-                email, 
+                email: email.trim(), 
                 password 
             });
             
+            localStorage.setItem("token", response.data.token);
+
+            navigate("/workspace");
             console.log("استجابة الباك إند بنجاح:", response.data);
             
             if(response.data.token) {

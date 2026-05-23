@@ -1,106 +1,112 @@
 import './Home.css'; 
 import Header from '../component/Header'; 
+
 export default function Home() {
     return (
         <div className="home-page">
             <Header /> 
-            {/* 1. Hero Section */}
+            
+            {/* 1. Hero Section - يعبر عن توليد الأكواد والهياكل */}
             <section className="hero-section">
-                <div className="hero-glowing-blur"></div> {/* إضاءة خلفية فخمة */}
+                <div className="hero-glowing-blur"></div> 
                 <div className="container hero-container">
-                    <span className="hero-badge">Next-Gen Digital Solutions</span>
+                    <span className="hero-badge">AI-Powered Architecture Engine</span>
                     <h1 className="hero-title">
-                        Connecting Ideas With <span className="gradient-text">Future Technology</span>
+                        Turn Requirements Into <span className="gradient-text">Production Code</span> Instantly
                     </h1>
                     <p className="hero-subtitle">
-                        We build high-end, premium digital experiences that elevate your brand and scale your business to new heights.
+                        Submit your project ideas and system specs. InitPrompt will break them down into granular tasks, generate your entire file structure, and build the core schema automatically.
                     </p>
                     <div className="hero-actions">
-                        <a href="#Services" className="btn-primary">Explore Services</a>
-                        <a href="#how-it-works" className="btn-secondary">Learn More</a>
+                        <a href="#Architecture-Engine" className="btn-primary">Launch Engine</a>
+                        <a href="#how-it-works" className="btn-secondary">See How It Works</a>
                     </div>
                 </div>
             </section>
 
-            {/* 2. How It Works Section */}
+            {/* 2. How It Works Section - يشرح بدقة كيف تتحول الفكرة لملفات وأكواد */}
             <section id="how-it-works" className="section how-it-works-section">
                 <div className="container">
                     <div className="section-header">
-                        <h2 className="section-title">How It Works</h2>
-                        <p className="section-desc">Three simple steps to bring your vision to life.</p>
+                        <h2 className="section-title">The Generation Pipeline</h2>
+                        <p className="section-desc">From abstract thoughts to structured, deployable core architecture in 3 phases.</p>
                     </div>
                     <div className="steps-grid">
                         <div className="step-card">
                             <div className="step-number">01</div>
-                            <h3>Discovery & Strategy</h3>
-                            <p>We deeply analyze your business goals and map out the perfect path forward.</p>
+                            <h3>Requirement Breakdown</h3>
+                            <p>Input your text specs. Our engine extracts business logic and maps out an agile roadmap of development tasks.</p>
                         </div>
                         <div className="step-card">
                             <div className="step-number">02</div>
-                            <h3>Premium Design & Dev</h3>
-                            <p>Crafting stunning user interfaces with lightning-fast performance and clean code.</p>
+                            <h3>File Tree Schematics</h3>
+                            <p>The platform architect builds a complete directory layout, tailored precisely to your technology stack standards.</p>
                         </div>
                         <div className="step-card">
                             <div className="step-number">03</div>
-                            <h3>Launch & Scale</h3>
-                            <p>Deploying your product to the world and continuous optimization for growth.</p>
+                            <h3>Schema & Code Synthesis</h3>
+                            <p>Get instant production-ready Prisma/SQL schemas and structural boilerplates to start coding immediately.</p>
                         </div>
                     </div>
                 </div>
             </section>
 
-            {/* 3. Showcase Section */}
+            {/* 3. Showcase Section - يستعرض نماذج حقيقية تم توليدها بواسطة موقعك */}
             <section id="Showcase" className="section showcase-section">
                 <div className="container">
                     <div className="section-header">
-                        <h2 className="section-title">Our Showcase</h2>
-                        <p className="section-desc">Explore some of our latest premium projects and digital creations.</p>
+                        <h2 className="section-title">Engine Blueprints</h2>
+                        <p className="section-desc">Explore ready-to-use architecture models engineered and generated by InitPrompt.</p>
                     </div>
                     <div className="showcase-grid">
                         <div className="project-card">
                             <div className="project-image-wrapper">
-                                <div className="project-placeholder">Project Alpha Preview</div>
+                                <div className="project-placeholder code-preview">
+                                    <code>{`model User {\n  id    String @id\n  tasks Task[]\n}`}</code>
+                                </div>
                             </div>
                             <div className="project-info">
-                                <span>FinTech App</span>
-                                <h3>Next-Gen NeoBank</h3>
+                                <span>SaaS Platform Boilerplate</span>
+                                <h3>Multi-Tenant Architecture</h3>
                             </div>
                         </div>
                         <div className="project-card">
                             <div className="project-image-wrapper">
-                                <div className="project-placeholder">Project Beta Preview</div>
+                                <div className="project-placeholder code-preview">
+                                    <code>{`├── api/\n├── controllers/\n└── prisma/`}</code>
+                                </div>
                             </div>
                             <div className="project-info">
-                                <span>E-Commerce</span>
-                                <h3>Luxury Brand Store</h3>
+                                <span>RESTful API Stack</span>
+                                <h3>Express & Prisma Workspace</h3>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            {/* 4. Services Section */}
+            {/* 4. Core Features Section - يستعرض قدرات المحرك الهندسي للموقع */}
             <section id="Services" className="section services-section">
                 <div className="container">
                     <div className="section-header">
-                        <h2 className="section-title">Our Services</h2>
-                        <p className="section-desc">Tailored digital services engineered for modern businesses.</p>
+                        <h2 className="section-title">Core Capabilities</h2>
+                        <p className="section-desc">An advanced engineering toolkit designed to skip configuration and start building.</p>
                     </div>
                     <div className="services-grid">
                         <div className="service-card">
-                            <div className="service-icon">✦</div>
-                            <h3>Web Development</h3>
-                            <p>High-performance, secure, and fully scalable web applications built with React & Next.js.</p>
+                            <div className="service-icon">⚡</div>
+                            <h3>Automated Task Roadmaps</h3>
+                            <p>Translates complex system requirements into modular, checklist-ready dev tasks to accelerate your sprint planning.</p>
                         </div>
                         <div className="service-card">
-                            <div className="service-icon">✦</div>
-                            <h3>UI/UX Premium Design</h3>
-                            <p>Bespoke interactive interfaces focused on conversion, user retention, and modern aesthetics.</p>
+                            <div className="service-icon">📁</div>
+                            <h3>Dynamic File Tree Mapping</h3>
+                            <p>Generates standardized repository blueprints so your team maintains bulletproof project cleanliness across folders.</p>
                         </div>
                         <div className="service-card">
-                            <div className="service-icon">✦</div>
-                            <h3>Cloud Architecture</h3>
-                            <p>Reliable cloud infrastructure and API integrations designed for absolute stability.</p>
+                            <div className="service-icon">🛠️</div>
+                            <h3>Schema & Code Generation</h3>
+                            <p>Creates clean database models, relation matrices, and routing logic without writing a single line of boilerplate manually.</p>
                         </div>
                     </div>
                 </div>

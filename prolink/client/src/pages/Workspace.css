@@ -1,0 +1,363 @@
+/* ==========================================================================
+   1. Base Layout & Dynamic Grid
+   ========================================================================== */
+.workspace-page {
+    background-color: #070a13;
+    min-height: 100vh;
+    padding: 6rem 2rem 2rem; 
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--sans);
+}
+
+.workspace-container {
+    width: 100%;
+    max-width: 1400px;
+    display: grid;
+    grid-template-columns: 1fr 1.3fr; 
+    gap: 2rem;
+    height: 82vh;
+}
+
+/* ==========================================================================
+   2. Left Side: Control & Input Panel
+   ========================================================================== */
+.control-panel {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    backdrop-filter: blur(12px);
+    border-radius: 24px;
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: var(--shadow);
+}
+
+.panel-header h2 {
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.5px;
+}
+
+.panel-header h2 .accent {
+    color: var(--accent-color);
+    text-shadow: 0 0 15px var(--accent-glow);
+}
+
+.panel-header p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.prompt-form {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.prompt-textarea {
+    width: 100%;
+    flex-grow: 1;
+    background: #090d16;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.5rem;
+    color: var(--text-main);
+    font-family: var(--sans);
+    font-size: 1rem;
+    line-height: 1.6;
+    resize: none;
+    box-sizing: border-box;
+    outline: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.prompt-textarea:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 20px rgba(56, 189, 248, 0.15), inset 0 0 10px rgba(56, 189, 248, 0.05);
+}
+
+.prompt-textarea::placeholder {
+    color: rgba(148, 163, 184, 0.4);
+}
+
+.generate-btn {
+    background: linear-gradient(135deg, var(--accent-color), #0284c7);
+    color: #fff;
+    border: none;
+    padding: 1.1rem;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 20px var(--accent-glow);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.generate-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(56, 189, 248, 0.5);
+    filter: brightness(1.1);
+}
+
+.generate-btn:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.generate-btn:disabled {
+    background: #1e293b;
+    color: var(--text-muted);
+    box-shadow: none;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* ==========================================================================
+   3. Right Side: Multi-Tab Output Panel
+   ========================================================================== */
+.output-panel {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    backdrop-filter: blur(12px);
+    border-radius: 24px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+}
+
+.tabs-header {
+    display: flex;
+    background: rgba(4, 7, 13, 0.5);
+    border-bottom: 1px solid var(--border);
+    padding: 0 1rem;
+}
+
+.tab-link {
+    background: none;
+    border: none;
+    padding: 1.2rem 1.5rem;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-bottom: 2px solid transparent;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.tab-link:hover {
+    color: var(--text-main);
+}
+
+.tab-link.active {
+    color: var(--accent-color);
+    border-bottom-color: var(--accent-color);
+    background: rgba(56, 189, 248, 0.04);
+}
+
+.tab-content {
+    padding: 2.5rem;
+    flex-grow: 1;
+    overflow-y: auto;
+    background: #090d16;
+}
+
+.tab-content::-webkit-scrollbar {
+    width: 8px;
+}
+.tab-content::-webkit-scrollbar-track {
+    background: #090d16;
+}
+.tab-content::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 4px;
+}
+.tab-content::-webkit-scrollbar-thumb:hover {
+    background: var(--text-muted);
+}
+
+/* ==========================================================================
+   4. Component UI States (Tasks, Codeblocks, Loading, Error)
+   ========================================================================== */
+   
+/* 4.1 Tasks List UI */
+.tasks-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.task-item {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    background: rgba(15, 23, 42, 0.6);
+    padding: 1.1rem 1.5rem;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    transition: all 0.2s ease;
+}
+
+.task-item:hover {
+    border-color: rgba(56, 189, 248, 0.2);
+    background: rgba(15, 23, 42, 0.8);
+    transform: translateX(4px);
+}
+
+.task-item input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--accent-color);
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.task-item label {
+    color: var(--text-main);
+    font-size: 0.95rem;
+    cursor: pointer;
+    user-select: none;
+    line-height: 1.4;
+}
+
+.task-item input[type="checkbox"]:checked + label {
+    color: var(--text-muted);
+    text-decoration: line-through;
+    opacity: 0.7;
+}
+
+/* 4.2 Codeblock Container (Tree & Schema) */
+.code-block {
+    margin: 0;
+    height: 100%;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.code-block code {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: none;
+    border: none;
+    padding: 0;
+    color: #34d399; 
+    font-family: var(--mono);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    white-space: pre-wrap;
+}
+
+/* 4.3 App Empty & Error States */
+.empty-state {
+    color: var(--text-muted);
+    text-align: center;
+    padding: 5rem 1rem;
+    font-style: italic;
+    font-size: 1rem;
+}
+
+.error-message-box {
+    background: rgba(239, 68, 68, 0.08);
+    border: 1px solid rgba(239, 68, 68, 0.25);
+    color: #f87171;
+    padding: 1.2rem;
+    border-radius: 14px;
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    animation: fadeIn 0.3s ease;
+}
+
+/* 4.4 Advanced Loading UI Spinner */
+.loading-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    min-height: 300px;
+    color: var(--text-muted);
+    gap: 1.5rem;
+}
+
+.loading-state p {
+    font-size: 1rem;
+    letter-spacing: 0.2px;
+    animation: pulse 1.5s infinite ease-in-out;
+}
+
+.spinner {
+    width: 46px;
+    height: 46px;
+    border: 3px solid rgba(56, 189, 248, 0.08);
+    border-radius: 50%;
+    border-top-color: var(--accent-color);
+    border-right-color: var(--accent-purple);
+    animation: spin 0.8s linear infinite;
+}
+
+/* ==========================================================================
+   5. Animations & Keyframes
+   ========================================================================== */
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+}
+
+/* ==========================================================================
+   6. Ultra Responsive Controls
+   ========================================================================== */
+@media (max-width: 1200px) {
+    .workspace-container {
+        grid-template-columns: 1fr;
+        height: auto;
+    }
+    .control-panel {
+        height: auto;
+        min-height: 400px;
+    }
+    .output-panel {
+        height: 600px;
+    }
+}
+
+@media (max-width: 768px) {
+    .workspace-page {
+        padding: 5rem 1rem 1rem;
+    }
+    .control-panel {
+        padding: 1.5rem;
+    }
+    .tab-content {
+        padding: 1.5rem;
+    }
+    .tabs-header {
+        overflow-x: auto;
+    }
+    .tab-link {
+        padding: 1rem;
+        font-size: 0.85rem;
+        white-space: nowrap;
+    }
+}
