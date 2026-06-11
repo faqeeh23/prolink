@@ -1,9 +1,9 @@
-import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Register from "./pages/Register";
-import Login from "./pages/Login";
-import Home from "./pages/Home";
-import Workspace from "./pages/Workspace";
+import Register from "./pages/Register.tsx";
+import Login from "./pages/Login.tsx";
+import Home from "./pages/Home.tsx";
+import Workspace from "./pages/Workspace.tsx";
+
 import "./index.css";
 
 function App() {

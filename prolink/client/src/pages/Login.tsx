@@ -1,51 +1,44 @@
-import { useState } from "react";
-import axios from "axios"; 
+import { useState, type FormEvent } from "react";
+import axios, { AxiosError } from "axios";
 import { useNavigate } from "react-router-dom";
-import "./Login.css"; 
+import "./Login.css";
 
 export default function Login() {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [error, setError] = useState("");
-    const [loading, setLoading] = useState(false); 
+    const [email, setEmail] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
+    const [error, setError] = useState<string | null>("");
+    const [loading, setLoading] = useState<boolean>(false); 
 
     const navigate = useNavigate();
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        setError(""); 
+        setError("");
         setLoading(true);
 
         try {
-            const response = await axios.post("http://localhost:5000/api/auth/login", { 
-                email: email.trim(), 
-                password 
+            const response = await axios.post("http://localhost:5000/api/auth/login", {
+                email: email.trim(),
+                password
             });
-            
-            localStorage.setItem("token", response.data.token);
 
-            navigate("/workspace");
-            console.log("استجابة الباك إند بنجاح:", response.data);
-            
-            if(response.data.token) {
+            if (response.data.token) {
                 localStorage.setItem("token", response.data.token);
+                navigate("/workspace");
             }
-
-            alert("Logged in successfully!");
-            
         } catch (err) {
-            console.error("تفاصيل الخطأ:", err);
-            if (err.response && err.response.data && err.response.data.message) {
-                setError(err.response.data.message);
+            if (axios.isAxiosError(err)) {
+                setError(
+                    err.response?.data?.message ??
+                    "Login failed"
+                );
             } else {
-                setError("Login failed. Please check your credentials or server connection.");
+                setError("An unexpected error occurred");
             }
         } finally {
-            setLoading(false); 
+            setLoading(false);
         }
     };
-
-    return (
         <div className="login-page-wrapper">
             <div className="login-glowing-blur"></div>
             
