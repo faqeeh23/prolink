@@ -1,14 +1,15 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Register from "./pages/Register.tsx";
-import Login from "./pages/Login.tsx";
-import Home from "./pages/Home.tsx";
-import Workspace from "./pages/Workspace.tsx";
-
+import Register from "./pages/Register.js";
+import Login from "./pages/Login.js";
+import Home from "./pages/Home.js";
+import Workspace from "./pages/Workspace.js";
+import Header from "./component/Header.js";
 import "./index.css";
 
 function App() {
     return (
         <BrowserRouter>
+            <Header />
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/register" element={<Register />} />

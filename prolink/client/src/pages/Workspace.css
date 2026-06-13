@@ -1,56 +1,48 @@
 /* ==========================================================================
-   1. Base Layout & Dynamic Grid
+   1. Base Layout & Dashboard Grid
    ========================================================================== */
 .workspace-page {
-    background-color: #070a13;
+    background-color: var(--bg);
     min-height: 100vh;
-    padding: 6rem 2rem 2rem; 
+    padding: 7rem 2rem 4rem; 
     box-sizing: border-box;
     display: flex;
-    align-items: center;
     justify-content: center;
     font-family: var(--sans);
 }
 
 .workspace-container {
     width: 100%;
-    max-width: 1400px;
+    max-width: 1300px;
     display: grid;
-    grid-template-columns: 1fr 1.3fr; 
+    grid-template-columns: 350px 1fr; 
     gap: 2rem;
-    height: 82vh;
+    min-height: calc(100vh - 11rem);
 }
 
 /* ==========================================================================
-   2. Left Side: Control & Input Panel
+   2. Left Side: Inputs Control Panel
    ========================================================================== */
 .control-panel {
     background: var(--bg-card);
     border: 1px solid var(--border);
-    backdrop-filter: blur(12px);
-    border-radius: 24px;
-    padding: 2.5rem;
+    border-radius: 12px;
+    padding: 2rem;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    box-shadow: var(--shadow);
 }
 
 .panel-header h2 {
-    font-size: 2rem;
-    font-weight: 800;
-    margin-bottom: 0.5rem;
-    letter-spacing: -0.5px;
-}
-
-.panel-header h2 .accent {
-    color: var(--accent-color);
-    text-shadow: 0 0 15px var(--accent-glow);
+    font-family: var(--heading);
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+    letter-spacing: -0.02em;
 }
 
 .panel-header p {
     color: var(--text-muted);
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     line-height: 1.5;
 }
 
@@ -62,80 +54,90 @@
     margin-top: 2rem;
 }
 
+/* Inputs styling */
+.project-name-input {
+    width: 100%;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 0.8rem 1rem;
+    color: var(--text-main);
+    font-family: var(--sans);
+    font-size: 0.9rem;
+    outline: none;
+    box-sizing: border-box;
+    transition: all 0.2s ease;
+}
+
+.project-name-input:focus {
+    border-color: var(--accent-color);
+}
+
 .prompt-textarea {
     width: 100%;
     flex-grow: 1;
-    background: #090d16;
+    background: var(--bg);
     border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 1.5rem;
+    border-radius: 6px;
+    padding: 1rem;
     color: var(--text-main);
     font-family: var(--sans);
-    font-size: 1rem;
+    font-size: 0.9rem;
     line-height: 1.6;
-    resize: none;
+    resize: vertical;
+    min-height: 150px;
     box-sizing: border-box;
     outline: none;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.2s ease;
 }
 
 .prompt-textarea:focus {
     border-color: var(--accent-color);
-    box-shadow: 0 0 20px rgba(56, 189, 248, 0.15), inset 0 0 10px rgba(56, 189, 248, 0.05);
 }
 
-.prompt-textarea::placeholder {
-    color: rgba(148, 163, 184, 0.4);
+.prompt-textarea::placeholder, .project-name-input::placeholder {
+    color: #52525b;
 }
 
 .generate-btn {
-    background: linear-gradient(135deg, var(--accent-color), #0284c7);
-    color: #fff;
-    border: none;
-    padding: 1.1rem;
-    border-radius: 50px;
-    font-size: 1rem;
+    background: var(--text-main);
+    color: var(--bg);
+    border: 1px solid transparent;
+    padding: 0.8rem;
+    border-radius: 6px;
+    font-size: 0.95rem;
     font-weight: 600;
     cursor: pointer;
-    box-shadow: 0 4px 20px var(--accent-glow);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.2s ease;
 }
 
 .generate-btn:hover:not(:disabled) {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 25px rgba(56, 189, 248, 0.5);
-    filter: brightness(1.1);
-}
-
-.generate-btn:active:not(:disabled) {
-    transform: translateY(0);
+    background: transparent;
+    color: var(--text-main);
+    border-color: var(--text-main);
 }
 
 .generate-btn:disabled {
-    background: #1e293b;
-    color: var(--text-muted);
-    box-shadow: none;
+    background: var(--border);
+    color: #52525b;
     cursor: not-allowed;
-    opacity: 0.6;
 }
 
 /* ==========================================================================
-   3. Right Side: Multi-Tab Output Panel
+   3. Right Side: Multi-Tab Coding Output
    ========================================================================== */
 .output-panel {
     background: var(--bg-card);
     border: 1px solid var(--border);
-    backdrop-filter: blur(12px);
-    border-radius: 24px;
+    border-radius: 12px;
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    box-shadow: var(--shadow);
 }
 
 .tabs-header {
     display: flex;
-    background: rgba(4, 7, 13, 0.5);
+    background: var(--bg);
     border-bottom: 1px solid var(--border);
     padding: 0 1rem;
 }
@@ -145,14 +147,15 @@
     border: none;
     padding: 1.2rem 1.5rem;
     color: var(--text-muted);
-    font-size: 0.95rem;
-    font-weight: 600;
+    font-size: 0.9rem;
+    font-weight: 500;
     cursor: pointer;
     transition: all 0.2s ease;
     border-bottom: 2px solid transparent;
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    margin-bottom: -1px;
 }
 
 .tab-link:hover {
@@ -160,88 +163,67 @@
 }
 
 .tab-link.active {
-    color: var(--accent-color);
-    border-bottom-color: var(--accent-color);
-    background: rgba(56, 189, 248, 0.04);
+    color: var(--text-main);
+    border-bottom-color: var(--text-main);
 }
 
 .tab-content {
-    padding: 2.5rem;
+    padding: 2rem;
     flex-grow: 1;
     overflow-y: auto;
-    background: #090d16;
-}
-
-.tab-content::-webkit-scrollbar {
-    width: 8px;
-}
-.tab-content::-webkit-scrollbar-track {
-    background: #090d16;
-}
-.tab-content::-webkit-scrollbar-thumb {
-    background: var(--border);
-    border-radius: 4px;
-}
-.tab-content::-webkit-scrollbar-thumb:hover {
-    background: var(--text-muted);
+    background: var(--bg-card);
 }
 
 /* ==========================================================================
-   4. Component UI States (Tasks, Codeblocks, Loading, Error)
+   4. Component UI States & Views
    ========================================================================== */
-   
-/* 4.1 Tasks List UI */
+
+/* 4.1 Checkbox Roadmap Tasks List */
 .tasks-list {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
-    animation: fadeIn 0.3s ease-in-out;
+    gap: 0.8rem;
 }
 
 .task-item {
     display: flex;
-    align-items: center;
-    gap: 1.2rem;
-    background: rgba(15, 23, 42, 0.6);
-    padding: 1.1rem 1.5rem;
-    border-radius: 14px;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1rem;
+    border-radius: 6px;
     border: 1px solid var(--border);
-    transition: all 0.2s ease;
-}
-
-.task-item:hover {
-    border-color: rgba(56, 189, 248, 0.2);
-    background: rgba(15, 23, 42, 0.8);
-    transform: translateX(4px);
+    background: var(--bg);
 }
 
 .task-item input[type="checkbox"] {
-    width: 18px;
-    height: 18px;
-    accent-color: var(--accent-color);
+    margin-top: 3px;
+    width: 16px;
+    height: 16px;
+    accent-color: var(--text-main);
     cursor: pointer;
-    border-radius: 4px;
 }
 
 .task-item label {
     color: var(--text-main);
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     cursor: pointer;
-    user-select: none;
-    line-height: 1.4;
+    line-height: 1.5;
 }
 
 .task-item input[type="checkbox"]:checked + label {
     color: var(--text-muted);
     text-decoration: line-through;
-    opacity: 0.7;
 }
 
-/* 4.2 Codeblock Container (Tree & Schema) */
+/* 4.2 Terminal Codeblocks View */
 .code-block {
     margin: 0;
     height: 100%;
-    animation: fadeIn 0.3s ease-in-out;
+    padding: 1.5rem;
+    background-color: var(--code-bg);
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    overflow: auto;
 }
 
 .code-block code {
@@ -251,94 +233,160 @@
     background: none;
     border: none;
     padding: 0;
-    color: #34d399; 
+    color: #a1a1aa;
     font-family: var(--mono);
-    font-size: 0.95rem;
-    line-height: 1.7;
+    font-size: 0.85rem;
+    line-height: 1.6;
     white-space: pre-wrap;
 }
 
-/* 4.3 App Empty & Error States */
+/* 4.3 Database Schema Management View */
+.schema-tab-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    height: 100%;
+}
+
+.schema-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--bg);
+    padding: 1rem 1.5rem;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.select-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.select-wrapper label {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-muted);
+}
+
+.db-dropdown {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.5rem 1rem;
+    color: var(--text-main);
+    font-family: var(--sans);
+    font-size: 0.85rem;
+    outline: none;
+    cursor: pointer;
+}
+
+.db-dropdown:focus {
+    border-color: var(--text-muted);
+}
+
+.schema-btn {
+    background: var(--bg-card);
+    color: var(--text-main);
+    border: 1px solid var(--border);
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.schema-btn:hover:not(:disabled) {
+    border-color: var(--text-muted);
+}
+
+.schema-btn:disabled {
+    color: #52525b;
+    cursor: not-allowed;
+}
+
+/* 4.4 App Loading & Empty States */
 .empty-state {
     color: var(--text-muted);
     text-align: center;
-    padding: 5rem 1rem;
-    font-style: italic;
-    font-size: 1rem;
+    padding: 4rem 1rem;
+    font-size: 0.9rem;
 }
 
 .error-message-box {
-    background: rgba(239, 68, 68, 0.08);
-    border: 1px solid rgba(239, 68, 68, 0.25);
-    color: #f87171;
-    padding: 1.2rem;
-    border-radius: 14px;
+    background: #450a0a;
+    border: 1px solid #7f1d1d;
+    color: #fca5a5;
+    padding: 1rem;
+    border-radius: 6px;
     margin-bottom: 1.5rem;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     display: flex;
     align-items: center;
-    animation: fadeIn 0.3s ease;
+    gap: 0.6rem;
 }
 
-/* 4.4 Advanced Loading UI Spinner */
 .loading-state {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 100%;
-    min-height: 300px;
+    min-height: 200px;
     color: var(--text-muted);
-    gap: 1.5rem;
-}
-
-.loading-state p {
-    font-size: 1rem;
-    letter-spacing: 0.2px;
-    animation: pulse 1.5s infinite ease-in-out;
+    gap: 1rem;
 }
 
 .spinner {
-    width: 46px;
-    height: 46px;
-    border: 3px solid rgba(56, 189, 248, 0.08);
+    width: 32px;
+    height: 32px;
+    border: 2px solid var(--border);
     border-radius: 50%;
-    border-top-color: var(--accent-color);
-    border-right-color: var(--accent-purple);
+    border-top-color: var(--text-main);
+    animation: spin 0.8s linear infinite;
+}
+
+.loading-state-sub {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 1rem;
+    gap: 1rem;
+    color: var(--text-muted);
+}
+
+.spinner-small {
+    width: 24px;
+    height: 24px;
+    border: 2px solid var(--border);
+    border-radius: 50%;
+    border-top-color: var(--text-main);
     animation: spin 0.8s linear infinite;
 }
 
 /* ==========================================================================
-   5. Animations & Keyframes
+   5. Animations
    ========================================================================== */
 @keyframes spin {
     to { transform: rotate(360deg); }
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(4px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes pulse {
-    0%, 100% { opacity: 0.6; }
-    50% { opacity: 1; }
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 /* ==========================================================================
-   6. Ultra Responsive Controls
+   6. Dashboard Responsiveness
    ========================================================================== */
-@media (max-width: 1200px) {
+@media (max-width: 992px) {
     .workspace-container {
         grid-template-columns: 1fr;
-        height: auto;
-    }
-    .control-panel {
-        height: auto;
-        min-height: 400px;
-    }
-    .output-panel {
-        height: 600px;
     }
 }
 
@@ -346,18 +394,10 @@
     .workspace-page {
         padding: 5rem 1rem 1rem;
     }
-    .control-panel {
-        padding: 1.5rem;
-    }
-    .tab-content {
+    .control-panel, .tab-content {
         padding: 1.5rem;
     }
     .tabs-header {
         overflow-x: auto;
-    }
-    .tab-link {
-        padding: 1rem;
-        font-size: 0.85rem;
-        white-space: nowrap;
     }
 }

@@ -1,33 +1,39 @@
 import { useState, type FormEvent } from "react";
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
 
+interface LoginResponse {
+        token: string;
+    }
+interface ApiError {
+    message: string;
+}
 export default function Login() {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
-    const [error, setError] = useState<string | null>("");
+    const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState<boolean>(false); 
 
     const navigate = useNavigate();
-
+    
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        setError("");
+        setError(null);
         setLoading(true);
 
         try {
-            const response = await axios.post("http://localhost:5000/api/auth/login", {
+            const response = await axios.post<LoginResponse>("http://localhost:5000/api/auth/login", {
                 email: email.trim(),
                 password
             });
-
-            if (response.data.token) {
+            
+            if(response.data.token) {
                 localStorage.setItem("token", response.data.token);
                 navigate("/workspace");
             }
         } catch (err) {
-            if (axios.isAxiosError(err)) {
+            if (axios.isAxiosError<ApiError>(err)) {
                 setError(
                     err.response?.data?.message ??
                     "Login failed"
@@ -39,13 +45,14 @@ export default function Login() {
             setLoading(false);
         }
     };
+    return (
         <div className="login-page-wrapper">
             <div className="login-glowing-blur"></div>
             
             <div className="login-card">
                 <div className="login-logo-section">
                     <div className="login-logo-text-group">
-                        <span className="login-logo-main">Init<span className="login-accent">Prompt</span></span>
+                        <span className="login-logo-main">Pro<span className="login-accent">Link</span></span>
                         <span className="login-logo-author">by Mohammed Al Faqeeh</span>
                     </div>
                 </div>
@@ -93,9 +100,10 @@ export default function Login() {
                         ) : (
                             "Sign In"
                         )}
-                    </button>
-                </form>
 
+                    </button>
+            
+                </form>
                 <div className="login-footer">
                     <p>Secured by ProLink Encryption Matrix</p>
                 </div>

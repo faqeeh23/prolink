@@ -113,8 +113,8 @@ export default function Workspace() {
                 {/* Control Panel */}
                 <div className="control-panel">
                     <div className="panel-header">
-                        <h2>Init<span className="accent">description</span> Engine</h2>
-                        <p>Architect your application using system design description.</p>
+                        <h2>Pro<span className="accent">Link</span> Engine</h2>
+                        <p>Generate your core architecture instantly using system requirements.</p>
                     </div>
                     
                     <form onSubmit={handleGenerate} className="prompt-form">
@@ -122,17 +122,17 @@ export default function Workspace() {
                             type="text"
                             value={name}
                             onChange={(e) => setName(e.target.value)}
-                            placeholder="⚡ Project Name (e.g., ShopVibe API)"
+                            placeholder="Project Name (e.g., ShopVibe API)"
                             className="project-name-input"
                         />
                         <textarea
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
-                            placeholder="Describe your backend system architecture (e.g., A multi-vendor e-commerce with Express, Prisma, and PostgreSQL)..."
+                            placeholder="Describe your system requirements (e.g., Multi-vendor e-commerce with Express, Prisma, and PostgreSQL)..."
                             className="prompt-textarea"
                         />
                         <button type="submit" className="generate-btn" disabled={isGenerating}>
-                            {isGenerating ? 'Synthesizing Core...' : 'Generate Blueprint ⚡'}
+                            {isGenerating ? 'Synthesizing Core...' : 'Generate Blueprint'}
                         </button>
                     </form>
                 </div>
@@ -216,7 +216,7 @@ export default function Workspace() {
                                                 className="schema-btn"
                                                 disabled={isGeneratingSchema || !currentProjectId}
                                             >
-                                                {isGeneratingSchema ? 'Architecting Models...' : 'Generate DB Schema 🛠️'}
+                                                {isGeneratingSchema ? 'Architecting Models...' : 'Generate Database Schema'}
                                             </button>
                                         </div>
 

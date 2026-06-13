@@ -1,17 +1,14 @@
 import { useState, useEffect } from 'react';
+import { Link } from "react-router-dom";
 import './Header.css'; 
 
 export default function Header() {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-
+    const isLoggedIn = !!localStorage.getItem("token");
     useEffect(() => {
         const handleScroll = () => {
-            if (window.scrollY > 20) {
-                setIsScrolled(true);
-            } else {
-                setIsScrolled(false);
-            }
+            setIsScrolled(window.scrollY > 20);
         };
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
@@ -23,15 +20,16 @@ export default function Header() {
                 
                 <div className="logo-div">
                     <div className="logo-text-group">
-                        <span className="logo-text">Init<span className="accent">Prompt</span></span>
+                        <span className="logo-text">Pro<span className="accent">Link</span></span>
                         <span className="logo-author">by Mohammed Al Faqeeh</span>
                     </div>
                 </div>
 
                 <button 
                     className={`menu-toggle ${isMenuOpen ? 'open' : ''}`} 
-                    onClick={() => setIsMenuOpen(!isMenuOpen)}
+                    onClick={() => setIsMenuOpen(prev => !prev)}
                     aria-label="Toggle menu"
+                    aria-expanded={isMenuOpen}
                 >
                     <span></span>
                     <span></span>
@@ -39,20 +37,31 @@ export default function Header() {
                 </button>
 
                 <nav className={`nav-menu ${isMenuOpen ? 'active' : ''}`}>
-                    <a href="/" className="nav-link" onClick={() => setIsMenuOpen(false)}>Home</a>
-                    <a href="#how-it-works" className="nav-link" onClick={() => setIsMenuOpen(false)}>How it works</a>
-                    <a href="#Showcase" className="nav-link" onClick={() => setIsMenuOpen(false)}>Portfolio</a>
-                    <a href="#Services" className="nav-link" onClick={() => setIsMenuOpen(false)}>Services</a>
-                    
+                    <Link to="/" className="nav-link" onClick={() => setIsMenuOpen(false)}>Home</Link>
+                    <Link to="#how-it-works" className="nav-link" onClick={() => setIsMenuOpen(false)}>How it works</Link>
+                    <Link to="#Showcase" className="nav-link" onClick={() => setIsMenuOpen(false)}>Portfolio</Link>
+                    <Link to="#Services" className="nav-link" onClick={() => setIsMenuOpen(false)}>Services</Link>
+
                     <div className="nav-cta-mobile">
-                        <a href="/Login" className="auth-link-mobile" onClick={() => setIsMenuOpen(false)}>Sign In</a>
-                        <a href="/Register" className="cta-btn mobile-full" onClick={() => setIsMenuOpen(false)}>Register</a>
+                        <Link to="/login" className="auth-link-mobile" onClick={() => setIsMenuOpen(false)}>Sign In</Link>
+                        <Link to="/register" className="cta-btn mobile-full" onClick={() => setIsMenuOpen(false)}>Register</Link>
                     </div>
                 </nav>
 
                 <div className="header-cta">
-                    <a href="/Login" className="auth-link">Sign In</a>
-                    <a href="/Register" className="cta-btn">Register</a>
+                    { isLoggedIn ? (
+                        <>
+                            <Link to="/workspace" className="cta-btn">Go to Workspace</Link>
+                            <Link to="/login" className="cta-btn-logout" onClick={() => {
+                                localStorage.removeItem("token");
+                            }}>Logout</Link>
+                        </>
+                    ) : (
+                        <>
+                            <Link to="/login" className="auth-link">Sign In</Link>
+                            <Link to="/register" className="cta-btn">Register</Link>
+                        </>
+                    ) }
                 </div>
                 
             </div>

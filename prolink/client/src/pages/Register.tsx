@@ -1,5 +1,11 @@
-import { useState } from "react";
-import "./Register.css"; // ربط ملف الـ CSS الفخم الجديد
+import { useState, type FormEvent } from "react";
+import "./Register.css";
+import axios  from "axios";
+
+
+interface ValidationErrors {
+    confirmPassword?: string;
+}
 
 export default function Register() {
     const [email, setEmail] = useState("");
@@ -7,13 +13,13 @@ export default function Register() {
     const [confirmPassword, setConfirmPassword] = useState("");
     const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState(false);
-    const [validationErrors, setValidationErrors] = useState({});
+    const [validationErrors, setValidationErrors] = useState<ValidationErrors>({});
     const [serverError, setServerError] = useState("");
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [Name, setName] = useState("");
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setSuccess(false);
         setServerError("");
@@ -25,19 +31,22 @@ export default function Register() {
         setLoading(true);
 
         try {
-            const response = await fetch("http://localhost:5000/api/auth/register", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ name: Name, email, password }),
+            const response = await axios.post("http://localhost:5000/api/auth/register", {
+                name: Name,
+                email,
+                password
             });
-            const data = await response.json();
-            if (!response.ok) {
+            const data = await response.data;
+            if (response.status != 201) {
                 throw new Error(data.message || "Registration failed");
             } 
         } catch (err) {
-            setServerError(err.message);
+            if (axios.isAxiosError(err)) {
+                setServerError(err.response?.data?.message || "Registration failed");
+            } else {
+                setServerError("An unexpected error occurred during registration");
+            }
+
         } finally {
             setLoading(false);
         }
@@ -51,7 +60,7 @@ export default function Register() {
                 {/* Logo Section */}
                 <div className="reg-logo-section">
                     <div className="reg-logo-text-group">
-                        <span className="reg-logo-main">Init<span className="reg-accent">Prompt</span></span>
+                        <span className="reg-logo-main">Pro<span className="reg-accent">Link</span></span>
                         <span className="reg-logo-author">by Mohammed Al Faqeeh</span>
                     </div>
                 </div>
