@@ -1,11 +1,13 @@
-import { useState, useEffect } from 'react';
-import { Link } from "react-router-dom";
+import { useState, useEffect  } from 'react';
+import { Link, useNavigate } from "react-router-dom";
 import './Header.css'; 
+import { useAuth } from '../context/AuthContext';
 
 export default function Header() {
     const [isScrolled, setIsScrolled] = useState(false);
+    const navigate = useNavigate();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const isLoggedIn = !!localStorage.getItem("token");
+    const { isLoggedIn, logout } = useAuth();
     useEffect(() => {
         const handleScroll = () => {
             setIsScrolled(window.scrollY > 20);
@@ -13,7 +15,11 @@ export default function Header() {
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
-
+    
+    const handleLogout = () => {
+        logout();
+        navigate('/');
+    }
     return (
         <header className={`modern-header ${isScrolled ? 'scrolled' : ''}`}>
             <div className="header-container">
@@ -43,8 +49,19 @@ export default function Header() {
                     <Link to="#Services" className="nav-link" onClick={() => setIsMenuOpen(false)}>Services</Link>
 
                     <div className="nav-cta-mobile">
-                        <Link to="/login" className="auth-link-mobile" onClick={() => setIsMenuOpen(false)}>Sign In</Link>
-                        <Link to="/register" className="cta-btn mobile-full" onClick={() => setIsMenuOpen(false)}>Register</Link>
+                        { isLoggedIn ? (
+                            <>
+                                <Link to="/workspace" className="cta-btn mobile-full" onClick={() => setIsMenuOpen(false)}>Go to Workspace</Link>
+                                <button className="cta-btn-logout mobile-full" onClick={() => {handleLogout(); setIsMenuOpen(false)}}>
+                                    Logout
+                                </button>
+                            </>
+                        ) : (
+                            <>
+                                <Link to="/login" className="auth-link-mobile" onClick={() => setIsMenuOpen(false)}>Sign In</Link>
+                                <Link to="/register" className="cta-btn mobile-full" onClick={() => setIsMenuOpen(false)}>Register</Link>
+                            </>
+                        )}
                     </div>
                 </nav>
 
@@ -52,9 +69,9 @@ export default function Header() {
                     { isLoggedIn ? (
                         <>
                             <Link to="/workspace" className="cta-btn">Go to Workspace</Link>
-                            <Link to="/login" className="cta-btn-logout" onClick={() => {
-                                localStorage.removeItem("token");
-                            }}>Logout</Link>
+                            <button className="cta-btn-logout" onClick={() => {handleLogout()}}>
+                                Logout
+                            </button>
                         </>
                     ) : (
                         <>

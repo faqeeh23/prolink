@@ -182,8 +182,53 @@ const generateProjectSchema = async (req, res, next) => {
     }
 };
 
+
+const returnAllProjects = async (req, res, next) => {
+    try {
+        const userId = req.user?.id || req.user?.userId;
+        if (!userId) {
+            return res.status(401).json({ message: "المستخدم غير مصرح له، التوكن مفقود" });
+        }
+        const projects = await prisma.project.findMany({
+            where: { ownerId: userId },
+            select: { id: true, name: true, description: true }
+        });
+        res.status(200).json({ projects });
+    } catch (error) {
+        next(error);
+    }
+};
+
+const retutnProject = async (req, res, next) => {
+    try {
+        const { projectId } = req.params;
+        const project = await prisma.project.findUnique({
+            where: { id: projectId },
+            include: {
+                tasks: true,
+                fileStructures: true,
+                schema: true
+            }
+        });
+        if (!project) {
+            return res.status(404).json({ message: "Project Not defined" });
+        }
+        res.status(200).json({ 
+            projectId: project.id,
+            name: project.name,
+            description: project.description,
+            tasks: project.tasks.map(t => ({ title: t.title, description: t.description })),
+            files: project.fileStructures.map(f => ({ name: f.name, path: f.path, content: f.content })),
+            schema: project.schema ? project.schema.content : ""
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
 module.exports = {
     generateProject,        
     generateFileContent,
-    generateProjectSchema
+    generateProjectSchema,
+    retutnProject
 };

@@ -2,7 +2,7 @@ import { useState, type FormEvent } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
-
+import { useAuth } from "../context/AuthContext";
 interface LoginResponse {
         token: string;
     }
@@ -14,6 +14,7 @@ export default function Login() {
     const [password, setPassword] = useState<string>("");
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState<boolean>(false); 
+    const { login } = useAuth();
 
     const navigate = useNavigate();
     
@@ -29,8 +30,9 @@ export default function Login() {
             });
             
             if(response.data.token) {
-                localStorage.setItem("token", response.data.token);
+                login(response.data.token);
                 navigate("/workspace");
+                
             }
         } catch (err) {
             if (axios.isAxiosError<ApiError>(err)) {

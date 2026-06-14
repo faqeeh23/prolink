@@ -1,12 +1,10 @@
 import './Home.css'; 
-import Header from '../component/Header.js'; 
 
 export default function Home() {
     return (
         <div className="home-page">
-            <Header /> 
             
-            {/* 1. Hero Section - يعبر عن توليد الأكواد والهياكل */}
+            {/* 1. Hero Section */}
             <section className="hero-section">
                 <div className="hero-glowing-blur"></div> 
                 <div className="container hero-container">

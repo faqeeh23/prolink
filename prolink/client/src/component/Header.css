@@ -146,6 +146,16 @@
     border: 1px solid transparent;
 }
 
+.cta-btn-logout {
+    background: var(--logout-bg);
+    color: var(--text-main);
+    padding: 0.6rem 1.4rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
 .cta-btn:hover {
     background: transparent;
     color: var(--text-main);

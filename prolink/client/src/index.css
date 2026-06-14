@@ -13,7 +13,7 @@
   --text-main: #fafafa; /* Bright white for primary text */
   --text-muted: #a1a1aa; /* Professional grey for secondary text */
   --code-bg: #121212; /* Subtle contrast for code */
-  
+  --logout-bg: #611f1f; /* Slightly lighter for logout button */
   --accent-color: #2563eb; /* Professional Blue */
   --accent-cyan: #3b82f6; /* Lighter Blue */
   --accent-purple: #4f46e5; /* Indigo */

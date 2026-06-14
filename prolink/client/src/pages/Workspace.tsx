@@ -6,18 +6,22 @@ import axios from 'axios';
 export default function Workspace() {
     const navigate = useNavigate();
     
-    const [activeTab, setActiveTab] = useState('tasks');
-    const [name, setName] = useState('');
-    const [description, setDescription] = useState('');
-    const [isGenerating, setIsGenerating] = useState(false);
-    const [isGeneratingSchema, setIsGeneratingSchema] = useState(false); 
-    const [error, setError] = useState(null);
+    const [activeTab, setActiveTab] = useState<string>('tasks');
+    const [name, setName] = useState<string>('');
+    const [description, setDescription] = useState<string>('');
+    const [isGenerating, setIsGenerating] = useState<boolean>(false);
+    const [isGeneratingSchema, setIsGeneratingSchema] = useState<boolean>(false); 
+    const [error, setError] = useState<string | null>(null);
 
-    const [databaseType, setDatabaseType] = useState('Prisma');
+    const [databaseType, setDatabaseType] = useState<string>('Prisma');
 
-    const [currentProjectId, setCurrentProjectId] = useState(null);
+    const [currentProjectId, setCurrentProjectId] = useState<string | null>(null);
     
-    const [outputData, setOutputData] = useState({
+    const [outputData, setOutputData] = useState<{
+        tasks: string[];
+        fileTree: string;
+        schemaCode: string;
+    }>({
         tasks: [],
         fileTree: "",
         schemaCode: ""
@@ -30,7 +34,7 @@ export default function Workspace() {
         }
     }, [navigate]);
 
-    const handleGenerate = async (e) => {
+    const handleGenerate = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (!description.trim() || !name.trim()) {
             setError("الرجاء إدخال اسم المشروع ووصف البنية التحتية أولاً.");
@@ -60,12 +64,16 @@ export default function Workspace() {
             });
 
             if (response.data.projectId) {
-                setCurrentProjectId(response.data.projectId);
+                setCurrentProjectId(response.data.projectId as string);
             }
 
         } catch (err) {
             console.error("Error fetching engine output:", err);
-            setError(err.response?.data?.message || "Failed to generate architecture blueprints. Please try again.");
+            if (axios.isAxiosError(err)) {
+                setError((err.response?.data as { message?: string })?.message ?? "Failed to generate architecture blueprints. Please try again.");
+            } else {
+                setError("Failed to generate architecture blueprints. Please try again.");
+            }
         } finally {
             setIsGenerating(false);
         }
@@ -100,7 +108,11 @@ export default function Workspace() {
 
         } catch (err) {
             console.error("Error generating database schema:", err);
-            setError(err.response?.data?.message || "Failed to generate database schema. Please try again.");
+            if (axios.isAxiosError(err)) {
+                setError((err.response?.data as { message?: string })?.message ?? "Failed to generate database schema. Please try again.");
+            } else {
+                setError("Failed to generate database schema. Please try again.");
+            }
         } finally {
             setIsGeneratingSchema(false);
         }
@@ -228,16 +240,7 @@ export default function Workspace() {
                                         ) : (
                                             <pre className="code-block">
                                                 <code className="language-prisma">
-                                                    {typeof outputData.schemaCode === 'object' ? (
-                                                        Object.entries(outputData.schemaCode).map(([tableName, tableCode]) => (
-                                                            <div key={tableName} style={{ marginBottom: '20px' }}>
-                                                                <h3 style={{ color: '#58a6ff' }}>-- Table: {tableName}</h3>
-                                                                {tableCode}
-                                                            </div>
-                                                        ))
-                                                    ) : (
-                                                        outputData.schemaCode || "Select database type and click..."
-                                                    )}
+                                                    {outputData.schemaCode || "Select database type and click..."}
                                                 </code>
                                             </pre>
                                         )}
